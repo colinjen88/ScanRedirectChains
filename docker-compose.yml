@@ -1,0 +1,19 @@
+services:
+  app:
+    build: .
+    container_name: redirect-scanner
+    restart: always
+    ports:
+      - "9123:3001"
+    environment:
+      - PORT=3001
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    labels:
+      caddy: "http://rechains.goldlab.shop"
+      caddy.reverse_proxy: "{{upstreams 3001}}"
+    networks:
+      - web-proxy
+
+networks:
+  web-proxy:
+    external: true

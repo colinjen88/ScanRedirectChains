@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+/* ===== Custom Theme ===== */
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ===== Vue Transition: Fade ===== */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+/* ===== Mermaid Container ===== */
+.mermaid-container svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===== Markdown Body (for AI responses) ===== */
+.markdown-body {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: #334155;
+}
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3 {
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+.markdown-body h3 {
+  font-size: 1.1rem;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 0.3em;
+}
+.markdown-body p {
+  margin-bottom: 1em;
+}
+.markdown-body ul {
+  list-style-type: disc;
+  padding-left: 1.5em;
+  margin-bottom: 1em;
+}
+.markdown-body ol {
+  list-style-type: decimal;
+  padding-left: 1.5em;
+  margin-bottom: 1em;
+}
+.markdown-body li {
+  margin-bottom: 0.25em;
+}
+.markdown-body code {
+  font-family: var(--font-mono);
+  background-color: #f1f5f9;
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.85em;
+  color: #db2777;
+}
+.markdown-body pre {
+  background-color: #0f172a;
+  padding: 1em;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 1em;
+}
+.markdown-body pre code {
+  background-color: transparent;
+  color: #38bdf8;
+  padding: 0;
+  border-radius: 0;
+}
+.markdown-body strong {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* ===== Toast Notification ===== */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50;
+  animation: toast-slide-in 0.3s ease-out;
+}
+@keyframes toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Pulse dot animation ===== */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
