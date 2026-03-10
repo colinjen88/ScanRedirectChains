@@ -19,10 +19,13 @@ const {
   progress,
   progressText,
   currentScanningUrl,
+  progressTotal,
+  progressCurrent,
   results,
   showAdvanced,
   userAgent,
   maxRedirects,
+  timeoutMs,
   startScan,
 } = useScan(showToast)
 </script>
@@ -39,6 +42,7 @@ const {
           v-model:showAdvanced="showAdvanced"
           v-model:userAgent="userAgent"
           v-model:maxRedirects="maxRedirects"
+          v-model:timeoutMs="timeoutMs"
           :is-scanning="isScanning"
           @scan="startScan"
         />
@@ -49,6 +53,8 @@ const {
             :progress="progress"
             :progress-text="progressText"
             :current-url="currentScanningUrl"
+            :progress-total="progressTotal"
+            :progress-current="progressCurrent"
           />
         </Transition>
 

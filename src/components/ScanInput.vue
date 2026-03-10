@@ -7,6 +7,7 @@ const props = defineProps({
   showAdvanced: Boolean,
   userAgent: String,
   maxRedirects: Number,
+  timeoutMs: Number,
   isScanning: Boolean,
 })
 
@@ -16,6 +17,7 @@ const emit = defineEmits([
   'update:showAdvanced',
   'update:userAgent',
   'update:maxRedirects',
+  'update:timeoutMs',
   'scan',
 ])
 
@@ -88,7 +90,7 @@ const handleSubmit = () => {
         <Settings2 class="w-4 h-4" /> {{ showAdvanced ? '隱藏進階設定' : '顯示進階設定' }}
       </button>
       <Transition name="fade">
-        <div v-if="showAdvanced" class="mt-4 p-4 bg-slate-50 border border-slate-200 rounded-xl grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div v-if="showAdvanced" class="mt-4 p-4 bg-slate-50 border border-slate-200 rounded-xl grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label class="block text-xs font-bold text-slate-500 mb-1.5">模擬 User-Agent</label>
             <select
@@ -108,6 +110,15 @@ const handleSubmit = () => {
               :value="maxRedirects"
               @input="emit('update:maxRedirects', Number($event.target.value))"
               type="number" min="1" max="20"
+              class="w-full p-2.5 text-sm bg-white border border-slate-200 rounded-lg outline-none focus:border-indigo-500 transition-colors"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-500 mb-1.5">單次請求逾時 (毫秒)</label>
+            <input
+              :value="timeoutMs"
+              @input="emit('update:timeoutMs', Number($event.target.value))"
+              type="number" min="3000" max="60000" step="1000"
               class="w-full p-2.5 text-sm bg-white border border-slate-200 rounded-lg outline-none focus:border-indigo-500 transition-colors"
             />
           </div>

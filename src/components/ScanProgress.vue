@@ -3,6 +3,8 @@ defineProps({
   progress: Number,
   progressText: String,
   currentUrl: String,
+  progressTotal: { type: Number, default: 0 },
+  progressCurrent: { type: Number, default: 0 },
 })
 </script>
 
@@ -11,7 +13,10 @@ defineProps({
     <div class="max-w-md mx-auto">
       <div class="flex justify-between text-sm font-medium mb-2">
         <span class="text-indigo-600">{{ progressText }}</span>
-        <span class="text-slate-500">{{ progress }}%</span>
+        <span class="text-slate-500">
+          <template v-if="progressTotal > 0">{{ progressCurrent }} / {{ progressTotal }}</template>
+          <template v-else>{{ progress }}%</template>
+        </span>
       </div>
       <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
         <div

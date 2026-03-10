@@ -2,6 +2,7 @@ import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import path from 'path'
+import fs from 'fs'
 import { fileURLToPath } from 'url'
 import { scanRouter } from './routes/scan.js'
 import { aiRouter } from './routes/ai.js'
@@ -29,11 +30,14 @@ app.get('/api/health', (req, res) => {
 })
 
 // Serve static frontend files (used in production Docker container)
-app.use(express.static(path.join(__dirname, '../dist')))
+const distPath = path.join(__dirname, '../dist')
+app.use(express.static(distPath))
 
-// Handle Vue Router history mode / wildcard fallback to index.html
-app.get('/{*splat}', (req, res) => {
-    res.sendFile(path.join(__dirname, '../dist/index.html'))
+// Handle Vue Router history mode / wildcard fallback to index.html (僅在存在 dist 時，避免開發時送檔崩潰)
+app.get('/{*splat}', (req, res, next) => {
+    const indexFile = path.join(distPath, 'index.html')
+    if (fs.existsSync(indexFile)) res.sendFile(indexFile)
+    else next()
 })
 
 // Start server

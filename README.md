@@ -12,6 +12,9 @@
 - ✨ **AI 智慧分析** — Gemini AI 提供 SEO 建議與修復代碼
 - 📦 **CSV 匯出** — 一鍵匯出掃描結果
 - 🛡️ **安全設計** — API Key 存放於後端，不暴露給前端
+- ⏱️ **可調逾時與重試** — 進階設定可調整單次請求逾時（3–60 秒），暫時性連線錯誤自動重試最多 2 次
+- 🗺️ **Sitemap Index** — 全站掃描時自動辨識 sitemap index，遞迴解析多個子 sitemap（最多 50 個）
+- 📡 **即時進度** — 全站掃描時以 SSE 回傳「已掃 N / 總數 M」，前端即時更新進度
 
 ## 技術棧
 
@@ -58,6 +61,13 @@ npm run server     # 後端 (port 3001)
 ### 4. 開啟瀏覽器
 
 訪問 `http://localhost:5173`
+
+### 若無法檢查網站（疑難排解）
+
+- **必須同時啟動前端與後端**：只開 `npm run dev` 會無法掃描。請在專案根目錄執行 `npm run dev:all`，或開兩個終端分別執行 `npm run dev` 與 `npm run server`。
+- **網址格式**：可輸入 `https://example.com` 或直接輸入 `example.com`（會自動補上 `https://`）。
+- **後端埠號**：預設為 3001；若被佔用可設定環境變數 `PORT`（例如在 `server/.env` 加上 `PORT=3002`），並確認 `vite.config.js` 的 proxy 目標埠號一致。
+- **健康檢查**：瀏覽器開啟 `http://localhost:3001/api/health` 應回傳 `{"status":"ok",...}`，若無法連線代表後端未啟動。
 
 ## 專案結構
 
@@ -118,6 +128,10 @@ docker compose up -d --build
 ### 2. 關於 高流量全站掃描
 
 系統後端實作了分流機制 (Concurrency: 20)，掃描三千個以上的網頁時會分批排隊處理，以防止對目標伺服器或主機造成負載過大。
+
+## 更新日誌
+
+變更紀錄見 [CHANGELOG.md](./CHANGELOG.md)。
 
 ## License
 
